@@ -1,17 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react' // Importamos useEffect
 import { jwtDecode } from 'jwt-decode'
-
-type Rol = "CLIENTE" | "GERENTE" | "ADMINISTRADOR";
-
-interface AuthContextType {
-    token: string | null
-    nombreUsuario: string | null
-    rol: Rol | null
-    id: number | null
-    cargando: boolean // <--- Agregamos esto
-    iniciarSesion: (token: string) => void
-    cerrarSesion: () => void
-}
+import {type Rol, type AuthContextType} from '../types/auth.ts'
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

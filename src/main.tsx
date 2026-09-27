@@ -1,22 +1,12 @@
+// src/main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThemeProvider, createTheme, CssBaseline } from '@mui/material'
+import { ThemeProvider, CssBaseline } from '@mui/material'
 import { NotificationProvider } from './context/NotificationContext.tsx'
 import { AuthProvider } from './context/AuthContext.tsx'
 import App from './App.tsx'
+import { theme } from './theme.ts' // <-- Importas tu tema
 import './index.css'
-
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    background: {
-      default: '#2f2f2f'
-    }
-  },
-  typography: {
-    fontFamily: 'BJ Cree'
-  }
-})
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

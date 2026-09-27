@@ -1,4 +1,4 @@
-export const traducirError = (err: any): string => {
+export const traducirError = (err: unknown): string => {
     // La conexión ni se estableció (server caído, sin red)
     if (err instanceof TypeError && err.message === 'Failed to fetch') {
         return "No se pudo conectar con el servidor. Verificá tu conexión e intentá de nuevo.";

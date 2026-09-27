@@ -2,11 +2,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useAuth } from '../context/AuthContext'
-import type { Usuario } from '../types'
 
-import FormularioUsuario from './administrador/FormularioUsuario'
-import AdminUsuarios from './administrador/AdminUsuarios'
-import AdminDesarrolladores from './administrador/AdminDesarrolladores'
+import AdminUsuarios from './administrador/adminUsuarios/AdminUsuarios'
+import AdminDesarrolladores from './administrador/adminDevs/AdminDesarrolladores'
 
 import GerenteProyectos from './gerente/GerenteProyectos'
 import GerenteClientes from './gerente/GerenteClientes'
@@ -195,19 +193,6 @@ export default function Layout() {
                             }}
                         />
                     )}
-
-                    {/* USUARIO 
-                    {seccionActiva === 'perfil' && (
-                        <FormularioUsuario
-                            usuario={{
-                                nombreUsuario: nombreUsuario,
-                                rol: rol
-                            } as Usuario}
-                            onGuardar={(datos) => console.log("Actualizando perfil:", datos)}
-                            onCancelar={() => setSeccionActiva(opcionesPorRol[rol!][0].value)}
-                        />
-                    )*/}
-
                 </Box>
             </Box>
         </Box>

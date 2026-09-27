@@ -3,6 +3,7 @@ import { TextField, type TextFieldProps } from '@mui/material'
 interface Props extends Omit<TextFieldProps, 'inputProps'> {
     maxLength?: number
     mostrarContador?: boolean
+    //placeholder?: string
 }
 
 function CampoTexto({ maxLength, mostrarContador = false, value, helperText, ...resto }: Props) {
@@ -10,6 +11,7 @@ function CampoTexto({ maxLength, mostrarContador = false, value, helperText, ...
 
     return (
         <TextField
+            //placeholder=''
             value={value}
             inputProps={{ maxLength }}
             helperText={mostrarContador && maxLength ? `${longitud}/${maxLength}` : helperText}

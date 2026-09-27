@@ -20,7 +20,8 @@ const config = {
         icon: <ErrorIcon sx={{ color: '#fff' }} />,
     },
     warning: {
-        color: '#ed6c02',
+        //color: '#ed6c02',
+        color: '#e4af00',
         icon: <WarningIcon sx={{ color: '#fff' }} />,
     },
     info: {
