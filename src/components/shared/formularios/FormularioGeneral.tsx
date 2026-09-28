@@ -7,8 +7,10 @@ interface FormularioGeneral {
     error?: string | null;
     onGuardar: () => void;
     onCancelar: () => void;
+    onEliminar?: () => void;
     textoGuardar?: string;   // Opcional por si algún día querés que diga "Crear" o "Actualizar"
     textoCancelar?: string;
+    textoEliminar?: string;
     children: React.ReactNode; // Acá adentro van a ir los campos de texto, switches, etc.
 }
 
@@ -17,8 +19,10 @@ export default function FormularioGeneral({
     error,
     onGuardar,
     onCancelar,
+    onEliminar,
     textoGuardar = "Crear",
     textoCancelar = "Cancelar",
+    textoEliminar = "Eliminar",
     children
 }: FormularioGeneral) {
     return (
@@ -55,7 +59,8 @@ export default function FormularioGeneral({
             <BotoneraAcciones
                 acciones={[
                     { texto: textoCancelar, onClick: onCancelar },
-                    { texto: textoGuardar, onClick: onGuardar, color: 'blue' }
+                    { texto: textoGuardar, onClick: onGuardar, color: 'blue' },
+                    ...(onEliminar ? [{ texto: textoEliminar, onClick: onEliminar, color: 'red' }] : [])
                 ]}
             />
         </Box>

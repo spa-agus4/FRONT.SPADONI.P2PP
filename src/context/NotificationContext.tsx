@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react' // Importamos useEffect
+import { createContext, useState, useContext } from 'react'
 
 interface NotificationContextType {
     showNotification: (msg: string, sev: "success" | "error" | "info" | "warning") => void;
@@ -21,7 +21,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
         setOpen(true);
     };
 
-    // 2. Pasamos TODO en el value
     return (
         <NotificationContext.Provider value={{ showNotification, open, message, severity, setOpen }}>
             {children}
@@ -29,7 +28,6 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     )
 }
 
-// 3. El hook queda limpio así:
 export const useNotification = () => {
     const context = useContext(NotificationContext);
     if (!context) throw new Error('useNotification debe usarse dentro de NotificationProvider');

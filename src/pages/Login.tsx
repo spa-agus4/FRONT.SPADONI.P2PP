@@ -19,10 +19,10 @@ function Login() {
     }
 
     const handleSubmit = async () => {
-        // 1. Validación local rápida
+
         if (!form.nombreUsuario.trim() || !form.contrasena.trim()) {
             setError('Por favor, completa todos los campos');
-            return; // Cortamos acá, no llamamos a la API
+            return;
         }
 
         setLoading(true)

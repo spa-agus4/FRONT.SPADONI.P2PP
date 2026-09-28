@@ -197,7 +197,7 @@ function FormularioProyecto({ proyectoAEditar, onGuardar, onCancelar, esLecturaO
                         ) : (
                             <Autocomplete
                                 options={[
-                                    ...listaClientes.filter(c => c.activo !== false || c.id === clienteSeleccionado?.id),
+                                    ...listaClientes,
                                     { id: -1, nombre: "+ Nuevo Cliente" } as Cliente
                                 ]}
                                 getOptionLabel={(option) => option.nombre || ""}

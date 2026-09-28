@@ -68,10 +68,10 @@ function GerenteClientes({ onVerProyectosCliente }: GerenteClientesProps) {
                                             <>
                                                 <BotonEditar onClick={() => abrirParaEditar(c)} />
                                                 {
-                                                    c.activo ? (
-                                                        <BotonEliminar onClick={() => handleAbrirModal(c)} />
-                                                    ) : (
+                                                    !c.activo && c.nombreUsuario != null ? (
                                                         <BotonHabilitar onClick={() => handleHabilitar(c)} />
+                                                    ) : (
+                                                        <BotonEliminar onClick={() => handleAbrirModal(c)} />
                                                     )
                                                 }
                                             </>
@@ -103,8 +103,8 @@ function GerenteClientes({ onVerProyectosCliente }: GerenteClientesProps) {
                     clienteAEditar={itemAEditar}
                     onGuardar={handleGuardarFormulario}
                     onCancelar={volverALista}
+                    onEliminar={confirmarEliminar}
                 />
-
             )}
         </Box>
     );
