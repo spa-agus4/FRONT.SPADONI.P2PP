@@ -1,4 +1,4 @@
-const CONFIG_ROLES = {
+export const CONFIG_ROLES = {
     ADMINISTRADOR: {
         color: '#d32f2f',
         opciones: [

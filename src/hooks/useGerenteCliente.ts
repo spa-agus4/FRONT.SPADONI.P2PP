@@ -33,9 +33,7 @@ export function useGerenteCliente() {
                     // Si el backend devuelve el usuario y su propiedad 'activo' cambió a false:
                     if (res && res.activo === false) {
                         // NO lo eliminamos de la lista, solo actualizamos su campo 'activo' en el estado
-                        setClientes(prev => prev.map(u =>
-                            u.id === clienteSeleccionado.id ? { ...u, activo: false } : u
-                        ));
+                        setClientes(prev => prev.map(u => u.id === clienteSeleccionado.id ? { ...u, activo: false } : u));
                         showNotification("El cliente tiene proyectos asociados, fue inhabilitado.", 'warning');
                     } else {
                         // Si devolvió null (o un status sin cuerpo), significa que se borró físicamente

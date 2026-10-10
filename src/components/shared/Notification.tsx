@@ -3,6 +3,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import InfoIcon from '@mui/icons-material/Info';
 import WarningIcon from '@mui/icons-material/Warning';
+import { useEffect } from 'react';
 
 interface Props {
     message: string;
@@ -33,6 +34,13 @@ const config = {
 export default function Notification({ message, severity, onClose }: Props) {
 
     const currentConfig = config[severity];
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            onClose();
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [onClose]);
 
     return (
         <Box
