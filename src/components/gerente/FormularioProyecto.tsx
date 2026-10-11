@@ -19,6 +19,7 @@ import DatosAdministrativosProyecto from "./FormularioProyecto/DatosAdministrati
 import { SelectorFecha } from "./FormularioProyecto/SelectorFecha"
 import { useFormularioProyecto } from "../../hooks/useFormularioProyecto"
 import { useDatosFormularioProyecto } from "../../hooks/useDatosExtFormProyecto"
+import HistorialDesarrolladores from "./FormularioProyecto/HistorialDesarrolladores"
 
 interface Props {
     proyectoAEditar?: Proyecto | null;
@@ -64,7 +65,8 @@ function FormularioProyecto({ proyectoAEditar, onGuardar, onCancelar, esLecturaO
         agregarCliente,
         listaDevs,
         devsSeleccionados,
-        setDevsSeleccionados
+        setDevsSeleccionados,
+        historialDesarrolladores
     } = useDatosFormularioProyecto(proyectoAEditar, esLecturaOnly);
 
     const { showNotification } = useNotification()
@@ -260,12 +262,22 @@ function FormularioProyecto({ proyectoAEditar, onGuardar, onCancelar, esLecturaO
 
                     {/* Columna Izquierda Devs */}
                     <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
-                        <SelectorDesarrolladores
-                            desarrolladoresDisponibles={listaDevs}
-                            desarrolladoresSeleccionados={devsSeleccionados}
-                            onChange={setDevsSeleccionados}
-                            esLecturaOnly={esLecturaOnly}
-                        />
+                        {estadoProceso === 'EN_CURSO' ? (
+                            <SelectorDesarrolladores
+                                desarrolladoresDisponibles={listaDevs}
+                                desarrolladoresSeleccionados={devsSeleccionados}
+                                onChange={setDevsSeleccionados}
+                                esLecturaOnly={esLecturaOnly}
+                            />
+                        ) : proyectoAEditar?.id ? (
+                            <HistorialDesarrolladores
+                                desarrolladores={historialDesarrolladores}
+                            />
+                        ) : (
+                            <Typography variant="body2" color="text.secondary">
+                                El proyecto todavía no tiene historial de desarrolladores.
+                            </Typography>
+                        )}
 
                         <Box sx={{ display: 'flex', alignSelf: 'flex-start', alignItems: 'center', gap: 1 }}>
                             {esLecturaOnly ? (

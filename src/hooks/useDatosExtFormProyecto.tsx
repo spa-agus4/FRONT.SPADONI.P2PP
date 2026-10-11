@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Cliente, Desarrollador, Proyecto } from "../types";
 import { listarClientes } from "../services/datosClienteService";
-import { listarDesarrolladores, listarDesarrolladoresPorProyecto } from "../services/desarrolladorService";
+import { listarDesarrolladores, listarAsignadosActualesPorProyecto, listarHistorialPorProyecto } from "../services/desarrolladorService";
 import { useProcesarError } from "./useProcesarError";
 
 export function useDatosFormularioProyecto(proyectoAEditar?: Proyecto | null, esLecturaOnly: boolean = false) {
@@ -9,6 +9,7 @@ export function useDatosFormularioProyecto(proyectoAEditar?: Proyecto | null, es
     const [listaClientes, setListaClientes] = useState<Cliente[]>([]);
     const [listaDevs, setListaDevs] = useState<Desarrollador[]>([]);
     const [devsSeleccionados, setDevsSeleccionados] = useState<Desarrollador[]>([]);
+    const [historialDesarrolladores, setHistorialDesarrolladores] = useState<Desarrollador[]>([]);
 
     const { procesarError } = useProcesarError();
 
@@ -16,6 +17,7 @@ export function useDatosFormularioProyecto(proyectoAEditar?: Proyecto | null, es
         setListaClientes(prev => [...prev, cliente]);
     };
 
+    // Clientes disponibles para el formulario
     useEffect(() => {
         if (esLecturaOnly) {
             return;
@@ -26,6 +28,7 @@ export function useDatosFormularioProyecto(proyectoAEditar?: Proyecto | null, es
             .catch(procesarError);
     }, [esLecturaOnly]);
 
+    // Desarrolladores que pueden seleccionarse en el formulario
     useEffect(() => {
         if (esLecturaOnly) {
             return;
@@ -43,13 +46,30 @@ export function useDatosFormularioProyecto(proyectoAEditar?: Proyecto | null, es
             .catch(procesarError);
     }, [esLecturaOnly, proyectoAEditar?.id]);
 
+    // Asignaciones actuales del proyecto
     useEffect(() => {
         if (!proyectoAEditar?.id) {
             return;
         }
 
-        listarDesarrolladoresPorProyecto(proyectoAEditar.id)
+        listarAsignadosActualesPorProyecto(proyectoAEditar.id)
             .then(setDevsSeleccionados)
+            .catch(procesarError);
+    }, [proyectoAEditar?.id]);
+
+    // Historial completo de participantes del proyecto
+    useEffect(() => {
+        const proyectoId = proyectoAEditar?.id;
+
+        if (!proyectoId) {
+            setHistorialDesarrolladores([]);
+            return;
+        }
+
+        setHistorialDesarrolladores([]);
+
+        listarHistorialPorProyecto(proyectoId)
+            .then(setHistorialDesarrolladores)
             .catch(procesarError);
     }, [proyectoAEditar?.id]);
 
@@ -58,6 +78,7 @@ export function useDatosFormularioProyecto(proyectoAEditar?: Proyecto | null, es
         agregarCliente,
         listaDevs,
         devsSeleccionados,
-        setDevsSeleccionados
+        setDevsSeleccionados,
+        historialDesarrolladores
     };
 }

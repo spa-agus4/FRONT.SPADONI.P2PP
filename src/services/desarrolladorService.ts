@@ -7,8 +7,14 @@ export const listarDesarrolladores = (): Promise<Desarrollador[]> => {
     })
 }
 
-export const listarDesarrolladoresPorProyecto = (proyectoId: number): Promise<Desarrollador[]> => {
+export const listarAsignadosActualesPorProyecto = (proyectoId: number): Promise<Desarrollador[]> => {
     return apiClient<Desarrollador[]>(`/api/desarrolladores/proyecto/${proyectoId}`, {
+        method: 'GET'
+    })
+}
+
+export const listarHistorialPorProyecto = (proyectoId: number): Promise<Desarrollador[]> => {
+    return apiClient<Desarrollador[]>(`/api/desarrolladores/proyecto/historial/${proyectoId}`, {
         method: 'GET'
     })
 }
